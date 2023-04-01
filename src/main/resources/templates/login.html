@@ -14,6 +14,7 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
     />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <title>Login Page</title>
 </head>
@@ -23,16 +24,23 @@
     <!-- <video autoplay>
       <source src="./videoplayback (4).mp4" type="video/mp4" />
     </video> -->
-    <div th:if="${param.error}">
-        <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+   <div th:if="${param.error}">
+<!--      <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>-->
+       <script th:inline="javascript">
+     swal("Error","Invalid Credentials","error")
+		  	const colorChange = document.querySelector('.flex-container');
+    		colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("/assets/videos/red.gif");`;
+  </script>
+
     </div>
 
-    <div th:if="${param.logout}">
-        <p class="text-warning">You have been logged out.</p>
-    </div>
+<!--    <div th:if="${param.logout}">-->
+<!--        <p class="text-warning">You have been logged out.</p>-->
+<!--    </div>-->
     <div class="card">
         <div class="login">
             <form th:action="@{/process}" method="post" onsubmit="return LoginValidate()">
+
                 <div
                         align="center"
                         style="
@@ -86,24 +94,22 @@
 <!--		   swal("Error","Invalid Credentials","error")-->
 <!--   }-->
 <!--   </script>-->
-<script type="text/javascript">
-   const logval = document.getElementById('loginvalue').value;
-   if(logval!=null){
-	   if(logval == 'nouser'){
-		   swal("Error","Invalid Credentials","error")
-		  	const colorChange = document.querySelector('.flex-container');
-    		colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/red.gif");`;
-   }
-   }
-   let input = document.getElementsByTagName("input");
+<script th:inline="javascript">
+/*<![CDATA[*/
+    let input = document.getElementsByTagName("input");
    console.log(input.length)
    for (var i = 0; i < input.length; i++) {
 	   input[i].addEventListener('click',()=>{
 		   console.log('1')
 	       const colorChange = document.querySelector('.flex-container');
-	       colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/blue.gif");`
+	       colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("/assets/videos/blue.gif");`
 	   })
 }
+/*]]>*/
+
+
+
+
 
 
 </script>
