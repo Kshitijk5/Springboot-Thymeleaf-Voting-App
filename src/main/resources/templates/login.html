@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      xmlns:form="http://form"
+      xmlns:field="http://field">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <title>Login Page</title>
+</head>
+<body>
+<!--<input type="hidden" value="<%=request.getAttribute("logval")%>" id="loginvalue">-->
+<div class="main flex-container">
+    <!-- <video autoplay>
+      <source src="./videoplayback (4).mp4" type="video/mp4" />
+    </video> -->
+    <div th:if="${param.error}">
+        <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+    </div>
+
+    <div th:if="${param.logout}">
+        <p class="text-warning">You have been logged out.</p>
+    </div>
+    <div class="card">
+        <div class="login">
+            <form th:action="@{/process}" method="post" onsubmit="return LoginValidate()">
+                <div
+                        align="center"
+                        style="
+                margin-bottom: 16px;
+                font-weight: bolder;
+                letter-spacing: 1mm;
+                font-size: 24px;
+              "
+                >
+                    Login
+                </div>
+                <input
+                        type="text"
+                        name="username"
+                        id="email"
+                        class="form-control"
+                        placeholder="Email"
+                />
+                <input
+                        type="password"
+                        name="password"
+                        id="pass"
+                        class="form-control"
+                        placeholder="Password"
+                />
+                <div class="btn-container">
+                    <input
+                            type="submit"
+                            name="submit"
+                            id="submit"
+                            value="Login"
+                            class="btn btn-primary"
+                    />
+                    <a href="Register.jsp">Create Account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
+<script th:src="@{/js/index.js}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!--<script type="text/javascript">-->
+<!--   const logval = document.getElementById('loginvalue').value;-->
+<!--   if(logval!=null){-->
+<!--	   if(logval == 'nouser')-->
+<!--		   swal("Error","Invalid Credentials","error")-->
+<!--   }-->
+<!--   </script>-->
+<script type="text/javascript">
+   const logval = document.getElementById('loginvalue').value;
+   if(logval!=null){
+	   if(logval == 'nouser'){
+		   swal("Error","Invalid Credentials","error")
+		  	const colorChange = document.querySelector('.flex-container');
+    		colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/red.gif");`;
+   }
+   }
+   let input = document.getElementsByTagName("input");
+   console.log(input.length)
+   for (var i = 0; i < input.length; i++) {
+	   input[i].addEventListener('click',()=>{
+		   console.log('1')
+	       const colorChange = document.querySelector('.flex-container');
+	       colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/blue.gif");`
+	   })
+}
+
+
+</script>
+</body>
+</html>
