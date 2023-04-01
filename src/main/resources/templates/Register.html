@@ -1,10 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="register.css" />
     <title>Register Page</title>
 </head>
 <body>
+<!--<input type="hidden" id="errorvalue" value="<%=request.getAttribute("error") %>">-->
+<div class="main flex-container">
 
+    <div class="card">
+        <div class="login">
+            <form th:action="@{/register}" method="post" onsubmit="return registerValidate()">
+                <div
+                        align="center"
+                        style="
+                margin-bottom: 16px;
+                font-weight: bolder;
+                letter-spacing: 1mm;
+                font-size: 24px;
+              "
+                >
+                    Register
+                </div>
+                <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        class="form-control"
+                        placeholder="Username"
+                />
+                <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        class="form-control"
+                        placeholder="Email"
+                />
+                <input
+                        type="text"
+                        name="phno"
+                        id="phno"
+                        class="form-control"
+                        placeholder="+91-"
+                />
+                <input
+                        type="text"
+                        name="address"
+                        id="address"
+                        class="form-control"
+                        placeholder="Address"
+                />
+                <input
+                        type="password"
+                        name="pass"
+                        id="pass"
+                        class="form-control"
+                        placeholder="Password"
+                />
+                <input
+                        type="password"
+                        name="repass"
+                        id="repass"
+                        class="form-control"
+                        placeholder="Re-Password"
+                />
+
+                <input
+                        type="submit"
+                        name="submit"
+                        id="submit"
+                        value="Register"
+                        class="btn btn-primary"
+                />
+                <a href="login.jsp">Already have an account?</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="index.js"></script>
+<script type="text/javascript">
+    const regval = document.getElementById("errorvalue").value;
+    console.log(regval)
+    if(regval!=null){
+    	if(regval=='duplicate'){
+    		swal("Error","Email already registered","error")
+    		const colorChange = document.querySelector('.flex-container');
+    		colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/red.gif");`;
+    	}
+    	if(regval=='regdone'){
+    		swal("Success","Registration Done!","success")
+    		const colorChange = document.querySelector('.flex-container');
+    		colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/green.gif");`;
+
+    	}
+    }
+    let input = document.getElementsByTagName("input");
+    console.log(input)
+    for (var i = 1; i <=4; i++) {
+ 	   input[i].addEventListener('click',()=>{
+ 		   //console.log('1')
+ 	       const colorChange = document.querySelector('.flex-container');
+ 	       colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/blue.gif");`;
+ 	   })
+ }
+    </script>
 </body>
 </html>
