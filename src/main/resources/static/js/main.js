@@ -34,3 +34,16 @@ let updateStatus = document.getElementById("upload-status").value;
 
                    swal("Success!", "Successfully profile updated with profile pic!", "success");
 
+
+ let voteStatus = document.getElementById("vote-status").value;
+
+  if(voteStatus=='true')
+
+        swal("Success!", "Successfully voted!", "success");
+
+        else if(voteStatus=='false')
+
+            swal("Error!", "Already voted!", "error");
+
+
+
