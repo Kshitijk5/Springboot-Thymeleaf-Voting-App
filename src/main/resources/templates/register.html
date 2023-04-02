@@ -10,7 +10,9 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
     />
-    <link rel="stylesheet" th:href="@{/register.css}" />
+    <link rel="shortcut icon" th:href="@{/assets/Images/elections.png}" type="image/png">
+
+    <link rel="stylesheet" th:href="@{/css/register.css}" />
     <title>Register Page</title>
 </head>
 <body>
@@ -19,7 +21,8 @@
 
     <div class="card">
         <div class="login">
-            <form th:action="@{/register}" method="post" onsubmit="return registerValidate()">
+            <form th:action="@{/auth/register-process}" method="post" onsubmit="return registerValidate()" th:object="${userModel}" >
+                <input type="hidden" th:value="${status}" id="status" />
                 <div
                         align="center"
                         style="
@@ -37,6 +40,7 @@
                         id="username"
                         class="form-control"
                         placeholder="Username"
+                        th:field = "*{username}"
                 />
                 <input
                         type="email"
@@ -44,27 +48,17 @@
                         id="email"
                         class="form-control"
                         placeholder="Email"
+                        th:field = "*{email}"
                 />
-                <input
-                        type="text"
-                        name="phno"
-                        id="phno"
-                        class="form-control"
-                        placeholder="+91-"
-                />
-                <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        class="form-control"
-                        placeholder="Address"
-                />
+
+
                 <input
                         type="password"
                         name="pass"
                         id="pass"
                         class="form-control"
                         placeholder="Password"
+                        th:field = "*{password}"
                 />
                 <input
                         type="password"
@@ -93,32 +87,27 @@
         crossorigin="anonymous"
 ></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="index.js"></script>
-<script type="text/javascript">
-    const regval = document.getElementById("errorvalue").value;
-    console.log(regval)
-    if(regval!=null){
+<script th:src="@{/js/index.js}"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+    //const regval = document.getElementById("errorvalue").value;
+    //console.log(regval)
+    /*if(regval!=null){
     	if(regval=='duplicate'){
     		swal("Error","Email already registered","error")
     		const colorChange = document.querySelector('.flex-container');
-    		colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/red.gif");`;
+    		colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("/assets/videos/red.gif");`;
     	}
     	if(regval=='regdone'){
     		swal("Success","Registration Done!","success")
     		const colorChange = document.querySelector('.flex-container');
-    		colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/green.gif");`;
+    		colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("/assets/videos/green.gif");`;
 
     	}
-    }
-    let input = document.getElementsByTagName("input");
-    console.log(input)
-    for (var i = 1; i <=4; i++) {
- 	   input[i].addEventListener('click',()=>{
- 		   //console.log('1')
- 	       const colorChange = document.querySelector('.flex-container');
- 	       colorChange.style=`transition: all 1s ease-in-out 0s; background-image: url("./assets/blue.gif");`;
- 	   })
- }
+    }*/
+
+ /*]]>*/
+
     </script>
 </body>
 </html>
