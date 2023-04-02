@@ -1,13 +1,136 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
+    <title>VoteEase</title>
+    <link rel="shortcut icon" th:href="@{/assets/Images/elections.png}" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/indexstyle.css}">
+
+
 </head>
 <body>
-<h1>This is the home page</h1>
-<form name="logoutForm" th:action="@{/logout}" method="post">
-    <input  type="submit" value="Sign Out"/>
-</form>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark   p-2">
+    <a class="navbar-brand ms-5" th:href="@{/home}"><img th:src="@{/assets/Images/brand-logo.png}" height="70px" width="100px"
+                                                    alt="VoteR"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse p-3 pr-3" id="navbarNav">
+        <ul class="navbar-nav  ms-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/home}">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/admin-panel}">Admin Panel</a>
+            </li>
+
+
+        </ul>
+        <ul class="navbar-nav  ">
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <img th:src="${#authentication.principal.pfpurl}" width="50px" height="50px"
+                         alt="User Profile Picture" class="rounded-circle"/>
+                    <span th:text="${#authentication.principal.username}"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item edit" href="#">Edit Profile</a>
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="Logout" class="dropdown-item">
+
+                    </form>
+
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+    <div class="container mt-3 ms-5">
+        <h1>Welcome to VoteEase</h1>
+        <p>Make your voice heard - cast your vote and be a part of shaping the future.</p>
+    </div>
+<!--MODAL-->
+<div class="modall hidden">
+
+    <form th:action="@{/update-profile}" method="post" enctype= "multipart/form-data" class="frm">
+        <input type="hidden" th:value="${updatestatus}" id="upload-status" />
+        <h1 align="center">Edit profile</h1>
+        <label for="files" class="btn rounded-circle">
+            <img th:src="${#authentication.principal.pfpurl}" alt="Profile Picture" width="100px" height="100px" class="rounded-circle"/>
+            <p style="font-size:18px;"> Change profile pic &#9998;</p></label>
+        <input type="file" id="files" accept="image/*" name="pfp" hidden>
+        <input type="text" id="username" name="username" placeholder="New Username" class="form-control" th:value="${#authentication.principal.username}">
+        <input type="password" id="pass" name="pass" placeholder=" Current Password" class="form-control" value="">
+        <input type="password" id="newpass" name="newpass" placeholder=" New Password" class="form-control" value="">
+        <input type="submit" value="Update" class="form-control btn btn-primary ">
+
+    </form>
+</div>
+
+<!--Card view-->
+
+
+<div class="row container ms-5 mt-5">
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card">
+            <img th:src="@{/assets/Images/pvp.jpg}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">The People's Voice Party</h5>
+                <p class="card-text">For the people, by the people..</p>
+                <button type="submit" class="btn btn-primary">Vote</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card">
+            <img th:src="@{/assets/Images/up.jpg}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">The Unity Party</h5>
+                <p class="card-text">Stronger together,united we stand.</p>
+                <button type="submit" class="btn btn-primary">Vote</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card">
+            <img th:src="@{/assets/Images/pa.jpg}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">The Progressive Alliance</h5>
+                <p class="card-text">Moving forward, together.</p>
+                <button type="submit" class="btn btn-primary">Vote</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card">
+            <img th:src="@{/assets/Images/fc.jpg}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">The Freedom Coalition</h5>
+                <p class="card-text">Liberty and justice for all.</p>
+                <button type="submit" class="btn btn-primary">Vote</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    OVERLAY-->
+
+    <div class="overlay hidden"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNSbNqv"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+            crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script th:src="@{/js/main.js}"></script>
 </body>
 </html>
