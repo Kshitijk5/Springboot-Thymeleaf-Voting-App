@@ -1,12 +1,17 @@
 package com.voting.Votingapp.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -16,6 +21,9 @@ import org.springframework.security.web.DefaultSecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Bean
     public DefaultSecurityFilterChain getSecurityFilterChain(HttpSecurity http) throws Exception {
 
@@ -23,7 +31,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll()
 //                        .requestMatchers("/home").permitAll()
-                        .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/assets/Images/**","/assets/videos/**").permitAll()
+                        .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/assets/Images/**","/assets/videos/**","/assets/Images/profile-pics/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formlogin -> formlogin
@@ -43,7 +51,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
+   /* @Bean
     public InMemoryUserDetailsManager getInMemoryUserDetailsManager() {
         UserDetails user1 = User.builder()
                 .username("kshitij")
@@ -56,6 +64,11 @@ public class SecurityConfig {
                 .roles("USER")
                 .build();
         return new InMemoryUserDetailsManager(user1);
+    }*/
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return  authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
