@@ -79,6 +79,8 @@ public class Controller {
     @GetMapping("/admin-panel")
     public String adminPanel(Model model) {
         model.addAttribute("voteData", voteService.getVoteCountsForAllParties());
+        model.addAttribute("userdetails",userRepository.findAll());
+        userRepository.findAll().forEach(user-> System.out.println(user));
         return "admin-panel";
     }
 
@@ -88,6 +90,11 @@ public class Controller {
         return "access-denied";
     }
 
+ @GetMapping("/error")
+ public String error( ) {
+
+     return "Error-Page";
+ }
 
 
     @PostMapping("/update-profile")
@@ -117,8 +124,11 @@ public class Controller {
         if (passwordEncoder.matches(currentPassword, userDetails.getPassword())) {
             System.out.println(pfp.getContentType());
             if (!pfp.isEmpty() && ((pfp.getContentType().equals("image/jpeg") || (pfp.getContentType().equals("image/png"))))) {
-                 if(pfp.getSize() > 5242880)
+                System.out.println(pfp.getSize()+"Is the size");
+                 if(pfp.getSize() > 5242880) {
+                     model.addAttribute("errormsg","Add image less than 5MB, password reset failed.");
                      return "Error-Page";
+                 }
                 user.setProfilePic(pfp.getOriginalFilename());
                 String resource = new ClassPathResource("/static/assets/Images/").getFile().getAbsolutePath();
 
