@@ -3,6 +3,7 @@ package com.voting.Votingapp.controller;
 import com.voting.Votingapp.model.User;
 import com.voting.Votingapp.repository.UserRepository;
 import com.voting.Votingapp.security.CustomUserDetails;
+import com.voting.Votingapp.service.impl.VoteService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class Controller {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private VoteService voteService;
+
 
     @Autowired
     private ServletContext servletContext;
@@ -53,8 +57,8 @@ public class Controller {
         return "test";
     }
 
-    @GetMapping("/home")
-    public String home(@ModelAttribute("updatestatus")String data, Model model) {
+    @GetMapping( value = {"/home","/"})
+    public String home(@ModelAttribute("updatestatus")String updateStatus,@ModelAttribute("votestatus") String voteStatus, Model model) {
 //        String profileUrl = userRepository.findByUsername(principal.getName()).get().getProfileUrl();
 
 //        UserDetails user = (UserDetails) principal;
@@ -66,14 +70,25 @@ public class Controller {
 //        else
 //            model.addAttribute("pfpurl",profileUrl);
 //        String vl = data;
-//        System.out.println("This is the  model value- "+ vl);
+//        System.out.println("This is the  model value- "+
+        System.out.println("vote status:- "+ voteStatus);
+        System.out.println("update status:- "+ updateStatus);
         return "home";
     }
 
     @GetMapping("/admin-panel")
-    public String adminPanel() {
+    public String adminPanel(Model model) {
+        model.addAttribute("voteData", voteService.getVoteCountsForAllParties());
         return "admin-panel";
     }
+
+    @GetMapping("/access-denied")
+    public String accessdenied(Model model) {
+
+        return "access-denied";
+    }
+
+
 
     @PostMapping("/update-profile")
     public String updateProfile(
@@ -102,7 +117,8 @@ public class Controller {
         if (passwordEncoder.matches(currentPassword, userDetails.getPassword())) {
             System.out.println(pfp.getContentType());
             if (!pfp.isEmpty() && ((pfp.getContentType().equals("image/jpeg") || (pfp.getContentType().equals("image/png"))))) {
-
+                 if(pfp.getSize() > 5242880)
+                     return "Error-Page";
                 user.setProfilePic(pfp.getOriginalFilename());
                 String resource = new ClassPathResource("/static/assets/Images/").getFile().getAbsolutePath();
 
