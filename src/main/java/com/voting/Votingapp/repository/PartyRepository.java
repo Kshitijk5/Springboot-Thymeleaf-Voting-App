@@ -11,4 +11,8 @@ public interface PartyRepository extends JpaRepository<Party,Long> {
 
     Optional<Party> findById(long id);
     Optional<Party> findByPartyName(String partName);
+
+    Optional<Party> findByPartyShortName(String shortName);
+
+
 }

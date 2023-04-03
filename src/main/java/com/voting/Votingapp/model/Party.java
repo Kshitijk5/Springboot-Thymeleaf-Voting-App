@@ -9,6 +9,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
 public class Party {
 
@@ -18,6 +19,9 @@ public class Party {
 
     @Column(name="part_name",unique = true)
     private String partyName;
+
+    @Column(name="short_name",unique = true)
+    private String partyShortName;
 
     @OneToMany(mappedBy = "party")
     private List<User> users;
