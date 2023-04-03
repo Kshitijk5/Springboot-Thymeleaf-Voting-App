@@ -11,7 +11,7 @@ public class AppConstants {
 
     //Default pfp
 
-    public static final String DEFAULT_PFP="man.png";
+    public static final String DEFAULT_PFP="user.jpg";
 
 
 }
