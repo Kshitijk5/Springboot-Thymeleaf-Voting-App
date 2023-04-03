@@ -53,7 +53,7 @@
 
 <div class="container mt-3 ms-5">
     <h1>Welcome Admin,<span sec:authentication="principal.username"></span></h1>
-    <p>Voting count board</p>
+
 </div>
 <!--MODAL-->
 <div class="modall hidden">
@@ -74,8 +74,9 @@
     </form>
 </div>
 
-<div class="container  bg-light w-50 rounded-3 p-3" >
-    <div class="row">
+<div class="container  bg-light w-50 rounded-3 p-3 me-auto">
+    <h3 class="text-center">Voting count board</h3>
+    <div class="row mt-3">
         <div class="col-md-12">
             <table class="table">
                 <thead>
@@ -93,7 +94,8 @@
                     <td th:text="${partyVoteCount.voteCount}"></td>
                     <td>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" th:style="'width: ' + ${partyVoteCount.voteCount} + '%'"
+                            <div class="progress-bar" role="progressbar"
+                                 th:style="'width: ' + ${partyVoteCount.voteCount} + '%'"
                                  th:aria-valuenow="${partyVoteCount.voteCount}"
                                  aria-valuemin="0" aria-valuemax="100">
                             </div>
@@ -107,6 +109,45 @@
         </div>
 
     </div>
+
+</div>
+<!--new-->
+
+<div class="container mt-3  bg-light  rounded-3 p-3 mb-5">
+    <h3 class="text-center">List of Registered users </h3>
+    <div class="row mt-3">
+        <div class="col-lg-12">
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                <tr>
+                    <th>User-ID</th>
+                    <th>Username</th>
+                    <th>E-mail</th>
+                    <th>Vote-Status</th>
+                    <th>Voted-Party</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="userdetail : ${userdetails}">
+                    <td th:text="${userdetail.id}"></td>
+                    <td>
+                        <img th:src="${userdetail.profileUrl}" alt="pfp" height="50px" width="50px" class="rounded-circle"> <span
+                            th:text="${userdetail.username}"></span>
+                    </td>
+                    <td th:text="${userdetail.email}"></td>
+                    <td th:text="${userdetail.voted}? 'Yes':'No'"></td>
+
+                    <td th:text="${userdetail.party!=null ? userdetail.party.partyName : 'NIL' }"></td>
+
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
 </div>
 
 
