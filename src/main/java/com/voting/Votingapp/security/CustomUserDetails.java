@@ -28,21 +28,18 @@ public class CustomUserDetails implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
 
 
-public CustomUserDetails(){
+    public CustomUserDetails() {
 
-}
+    }
 
-    public CustomUserDetails(String username, String email, String password,String pfpurl, Collection<? extends GrantedAuthority> authorities) {
+    public CustomUserDetails(String username, String email, String password, String pfpurl, Collection<? extends GrantedAuthority> authorities) {
 
         this.username = username;
         this.email = email;
         this.password = password;
-        this.pfpurl= pfpurl;
+        this.pfpurl = pfpurl;
         this.authorities = authorities;
     }
-
-
-
 
 
     @Override
