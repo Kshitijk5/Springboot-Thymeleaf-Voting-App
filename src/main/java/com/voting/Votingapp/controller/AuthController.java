@@ -4,6 +4,7 @@ import com.voting.Votingapp.model.Role;
 import com.voting.Votingapp.model.User;
 import com.voting.Votingapp.repository.RoleRepository;
 import com.voting.Votingapp.repository.UserRepository;
+import com.voting.Votingapp.utils.AppConstants;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +52,7 @@ public class AuthController {
         // add check for username exists in database
         if (userRepository.existsByUsername(user.getUsername())) {
 //            modelAndView.setViewName("register");
-            modelAndView.addObject("status", "username");
+            modelAndView.addObject(AppConstants.REGISTER_STATUS, AppConstants.REGISTER_USERNAME_EXISTS);
 
             return modelAndView;
         }
@@ -59,7 +60,7 @@ public class AuthController {
         // add check for email exists in database
         if (userRepository.existsByEmail(user.getEmail())) {
 //            modelAndView.setViewName("register");
-            modelAndView.addObject("status", "email");
+            modelAndView.addObject(AppConstants.REGISTER_STATUS, AppConstants.REGISTER_EMAIL_EXISTS);
             return modelAndView;
         }
 
@@ -68,7 +69,8 @@ public class AuthController {
         newUser.setUsername(user.getUsername());
         newUser.setEmail(user.getEmail());
         newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        newUser.setProfileUrl((ServletUriComponentsBuilder.fromCurrentContextPath().path("/assets/Images/").path("man.png").toUriString()));
+        newUser.setProfileUrl((ServletUriComponentsBuilder.fromCurrentContextPath().path("/assets/Images/").path(AppConstants.DEFAULT_PFP).toUriString()));
+        newUser.setVoted(false);
 
         Set<Role> roles = new HashSet<>();
         Role userRole = roleRepository.findByName("ROLE_USER").get();
@@ -78,7 +80,7 @@ public class AuthController {
         userRepository.save(newUser);
 
 //        modelAndView.setViewName("register");
-        modelAndView.addObject("status",true);
+        modelAndView.addObject(AppConstants.REGISTER_STATUS,AppConstants.REGISTER_SUCCESS);
 
         return modelAndView;
     }
