@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -80,7 +81,6 @@ public class Controller {
     public String adminPanel(Model model) {
         model.addAttribute("voteData", voteService.getVoteCountsForAllParties());
         model.addAttribute("userdetails",userRepository.findAll());
-        userRepository.findAll().forEach(user-> System.out.println(user));
         return "admin-panel";
     }
 
@@ -125,6 +125,10 @@ public class Controller {
             System.out.println(pfp.getContentType());
             if (!pfp.isEmpty() && ((pfp.getContentType().equals("image/jpeg") || (pfp.getContentType().equals("image/png"))))) {
                 System.out.println(pfp.getSize()+"Is the size");
+                if(newPassword==null || newPassword.isEmpty() || newPassword==""||name==""|| name==null|| name.isEmpty()) {
+                    redirectAttributes.addFlashAttribute("updatestatus", "noupdate");
+                    return "redirect:/home";
+                }
                  if(pfp.getSize() > 5242880) {
                      model.addAttribute("errormsg","Add image less than 5MB, password reset failed.");
                      return "Error-Page";
@@ -172,6 +176,10 @@ public class Controller {
 
                 return "redirect:/home";
             } else {
+                if(!StringUtils.hasText(newPassword) || !StringUtils.hasText(name)) {
+                    redirectAttributes.addFlashAttribute("updatestatus", "noupdate");
+                    return "redirect:/home";
+                }
                 user.setPassword(passwordEncoder.encode(newPassword));
                 user.setUsername(name);
                 userRepository.save(user);

@@ -33,6 +33,9 @@ let updateStatus = document.getElementById("upload-status").value;
             else if(updateStatus=='alldetails')
 
                    swal("Success!", "Successfully profile updated with profile pic!", "success");
+                   else if(updateStatus=='noupdate')
+
+                                  swal("Error!", "Fields cannot be empty", "error");
 
 
  let voteStatus = document.getElementById("vote-status").value;
