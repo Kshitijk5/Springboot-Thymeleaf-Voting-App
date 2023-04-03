@@ -29,16 +29,17 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/auth/**").permitAll()
 //                        .requestMatchers("/home").permitAll()
-                        .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/assets/Images/**","/assets/videos/**","/assets/Images/profile-pics/**").permitAll()
-                        .anyRequest().authenticated()
+                                .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/assets/Images/**", "/assets/videos/**", "/assets/Images/profile-pics/**").permitAll()
+                                .requestMatchers("/admin-panel").hasRole("ADMIN")
+                                .anyRequest().authenticated()
                 )
                 .formLogin(formlogin -> formlogin
                         .loginPage("/auth/login")
                         .loginProcessingUrl("/process")
 
-                        .defaultSuccessUrl("/home",true)
+                        .defaultSuccessUrl("/home", true)
                 )
                 .logout()
                 .logoutUrl("/logout").permitAll()
@@ -47,7 +48,8 @@ public class SecurityConfig {
 
         http.formLogin();
 
-
+        http.exceptionHandling()
+                .accessDeniedPage("/access-denied");
         return http.build();
     }
 
@@ -68,7 +70,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return  authenticationConfiguration.getAuthenticationManager();
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
