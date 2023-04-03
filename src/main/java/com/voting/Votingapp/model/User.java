@@ -29,7 +29,7 @@ public class User {
     )
     private Set<Role> roles;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Party party;
 
 
