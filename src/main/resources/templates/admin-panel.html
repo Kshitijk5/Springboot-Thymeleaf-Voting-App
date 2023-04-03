@@ -1,75 +1,115 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <title>VoteEase-AdminPanel</title>
-  <link rel="shortcut icon" th:href="@{/assets/Images/elections.png}" type="image/png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-  <link rel="stylesheet" th:href="@{/css/indexstyle.css}">
+    <title>VoteEase-AdminPanel</title>
+    <link rel="shortcut icon" th:href="@{/assets/Images/elections.png}" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/indexstyle.css}">
 
 
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mr-2 p-2">
-  <a class="navbar-brand ms-5" th:href="@{/home}"><img th:src="@{/assets/Images/brand-logo.png}" height="70px" width="100px"
-                                                  alt="VoteR"></a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse p-3 pr-3" id="navbarNav">
-    <ul class="navbar-nav  ms-auto">
-      <li class="nav-item active">
-        <a class="nav-link" th:href="@{/home}">Home</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" th:href="@{/admin-panel}">Admin Panel</a>
-      </li>
+    <a class="navbar-brand ms-5" th:href="@{/home}"><img th:src="@{/assets/Images/brand-logo.png}" height="70px"
+                                                         width="100px"
+                                                         alt="VoteR"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse p-3 pr-3" id="navbarNav">
+        <ul class="navbar-nav  ms-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/home}">Home</a>
+            </li>
+            <li class="nav-item active" sec:authorize="hasRole('ROLE_ADMIN')">
+                <a class="nav-link" th:href="@{/admin-panel}">Admin Panel</a>
+            </li>
 
 
-    </ul>
-    <ul class="navbar-nav  ">
-      <li class="nav-item dropdown ">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
-           aria-haspopup="true" aria-expanded="false">
-          <img th:src="${#authentication.principal.pfpurl}" width="50px" height="50px"
-               alt="" class="rounded-circle"/>
-          <span th:text="${#authentication.principal.username}"></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item edit" href="#">Edit Profile</a>
-          <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Logout" class="dropdown-item">
+        </ul>
+        <ul class="navbar-nav  ">
+            <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <img th:src="${#authentication.principal.pfpurl}" width="50px" height="50px"
+                         alt="" class="rounded-circle"/>
+                    <span th:text="${#authentication.principal.username}"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                    <a class="dropdown-item edit" href="#">Edit Profile</a>
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="Logout" class="dropdown-item">
 
-          </form>
+                    </form>
 
-        </div>
-      </li>
-    </ul>
-  </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </nav>
 
 <div class="container mt-3 ms-5">
-  <h1>Welcome Admin,<span sec:authentication="principal.username"></span></h1>
-  <p>Voting count board</p>
+    <h1>Welcome Admin,<span sec:authentication="principal.username"></span></h1>
+    <p>Voting count board</p>
 </div>
 <!--MODAL-->
 <div class="modall hidden">
 
-  <form th:action="@{/update-profile}" method="POST" enctype= "multipart/form-data" class="frm">
-    <h1 align="center">Edit profile</h1>
-    <label for="files" class="btn">
-      <img th:src="${#authentication.principal.pfpurl}" alt="Profile Picture" width="100px" height="100px" class="rounded-circle"/>
-      <p style="font-size:18px;"> Change profile pic &#9998;</p></label>
-    <input type="file" id="files"  name="pfp" hidden>
-    <input type="text" id="username" name="username" placeholder="New Username" class="form-control" th:value="${#authentication.principal.username}">
-    <input type="password" id="pass" name="pass" placeholder=" Current Password" class="form-control" value="">
-    <input type="password" id="newpass" name="newpass" placeholder=" New Password" class="form-control" value="">
+    <form th:action="@{/update-profile}" method="POST" enctype="multipart/form-data" class="frm">
+        <h1 align="center">Edit profile</h1>
+        <label for="files" class="btn">
+            <img th:src="${#authentication.principal.pfpurl}" alt="Profile Picture" width="100px" height="100px"
+                 class="rounded-circle"/>
+            <p style="font-size:18px;"> Change profile pic &#9998;</p></label>
+        <input type="file" id="files" name="pfp" hidden>
+        <input type="text" id="username" name="username" placeholder="New Username" class="form-control"
+               th:value="${#authentication.principal.username}">
+        <input type="password" id="pass" name="pass" placeholder=" Current Password" class="form-control" value="">
+        <input type="password" id="newpass" name="newpass" placeholder=" New Password" class="form-control" value="">
 
-    <input type="submit" value="Update" class="form-control btn btn-primary ">
-  </form>
+        <input type="submit" value="Update" class="form-control btn btn-primary ">
+    </form>
 </div>
+
+<div class="container  bg-light w-50 rounded-3 p-3" >
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Party-ID</th>
+                    <th>Party Name</th>
+                    <th>Vote Count</th>
+                    <th>Progress</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="partyVoteCount : ${voteData}">
+                    <td th:text="${partyVoteCount.party.id}"></td>
+                    <td th:text="${partyVoteCount.party.partyName}"></td>
+                    <td th:text="${partyVoteCount.voteCount}"></td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" th:style="'width: ' + ${partyVoteCount.voteCount} + '%'"
+                                 th:aria-valuenow="${partyVoteCount.voteCount}"
+                                 aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
+
 <!--    OVERLAY-->
 <div class="overlay hidden"></div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
