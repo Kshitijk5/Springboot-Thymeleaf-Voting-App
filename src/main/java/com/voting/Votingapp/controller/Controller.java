@@ -48,7 +48,7 @@ public class Controller {
     @Autowired
     private ServletContext servletContext;
 
-    //   public final String resource = new ClassPathResource("/static/assets/Images/profile").getFile().getAbsolutePath();
+    
     public Controller() throws IOException {
 
     }
@@ -60,18 +60,6 @@ public class Controller {
 
     @GetMapping( value = {"/home","/"})
     public String home(@ModelAttribute("updatestatus")String updateStatus,@ModelAttribute("votestatus") String voteStatus, Model model) {
-//        String profileUrl = userRepository.findByUsername(principal.getName()).get().getProfileUrl();
-
-//        UserDetails user = (UserDetails) principal;
-//        System.out.println(user);
-//
-
-//        if(profileUrl==null||profileUrl=="")
-//             model.addAttribute("pfpurl",(ServletUriComponentsBuilder.fromCurrentContextPath().path("/assets/Images/").path("man.png").toUriString()));
-//        else
-//            model.addAttribute("pfpurl",profileUrl);
-//        String vl = data;
-//        System.out.println("This is the  model value- "+
         System.out.println("vote status:- "+ voteStatus);
         System.out.println("update status:- "+ updateStatus);
         return "home";
@@ -108,14 +96,14 @@ public class Controller {
             Model model
 
     ) throws IOException {
-//        ModelAndView modelAndView = new ModelAndView("home");
+
         String username = principal.getName();
 
         User user = userRepository.findByUsername(username).get();
-//        String UPLOAD_DIR = new ClassPathResource("//static/assets/Images/profile/").getFile().getAbsolutePath();
+
 
         UserDetails userDetails = (UserDetails) ((Authentication) principal).getPrincipal();
-//        System.out.println(userDetails.getPassword());/**/
+
         System.out.println(userDetails);
         System.out.println("Current password entered by user:- " + currentPassword);
         System.out.println("logged in password:- " + userDetails.getPassword());
@@ -156,11 +144,7 @@ public class Controller {
 
                 );
                 System.out.println(userDetailsnew);
-//                        ;username
-//                        email
-//                        password
-//                                url
-//                                auth
+
 
 // Create a new authentication object with the custom UserDetails object
                 Authentication newAuthentication = new UsernamePasswordAuthenticationToken(
@@ -170,7 +154,7 @@ public class Controller {
                 SecurityContextHolder.getContext().setAuthentication(newAuthentication);
 
 
-                //model.addAttribute("updatestatus", "alldetails");
+              
 
                 redirectAttributes.addFlashAttribute("updatestatus", "alldetails");
 
@@ -204,7 +188,7 @@ public class Controller {
                 return "redirect:/home";
             }
         } else {
-          //  model.addAttribute("updatestatus", "passerror");
+          
             redirectAttributes.addFlashAttribute("updatestatus", "passerror");
             return "redirect:/home";
         }
