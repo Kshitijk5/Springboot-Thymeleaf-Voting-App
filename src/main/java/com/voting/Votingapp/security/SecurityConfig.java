@@ -30,7 +30,6 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                                 .requestMatchers("/auth/**").permitAll()
-//                        .requestMatchers("/home").permitAll()
                                 .requestMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/assets/Images/**", "/assets/videos/**", "/assets/Images/profile-pics/**").permitAll()
                                 .requestMatchers("/admin-panel").hasRole("ADMIN")
                                 .anyRequest().authenticated()
@@ -77,9 +76,6 @@ public class SecurityConfig {
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().dispatcherTypeMatchers("/css/**");
-//    }
+
 
 }
