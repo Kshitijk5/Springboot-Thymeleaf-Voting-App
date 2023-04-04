@@ -20,7 +20,8 @@ To run this app, you'll need to have the following installed:
 ## User Roles
 This app has two user roles:
 
-**Admin**: Can view the vote count for each party and the list of registered users. Can access the admin-panel page at http://localhost:8080/admin-panel.
+**Admin**: Can view the vote count for each party and the list of registered users. Can access the admin-panel page at http://localhost:8080/admin-panel.  
+
 **User**: Can vote once, edit their profile, and logout.
 
 ## Admin Panel
@@ -39,13 +40,31 @@ To log out, click on the "Logout" button on the top right corner of the screen. 
 Here are some screenshots of the app:
 
 
-## Login Page
-
-## Voting Page
-
+## Register Page
+   ![alt text](https://i.imgur.com/FI9wvYh.png)-
+## Register Success
+   ![alt text](https://i.imgur.com/Ui6jFSK.png)-
+## Register Fail
+   ![alt text](https://i.imgur.com/E3qg2oj.png)-
+## Login Page 
+   ![alt text](https://i.imgur.com/XXvJWY0.png)-
+## Login Fail
+   ![alt text](https://i.imgur.com/zYO5KkQ.png)-
+## Home Page
+   ![alt text](https://i.imgur.com/wF5Eg0q.png)-
 ## Admin Panel
-
-## Edit Modal
-
+   ![alt text](https://i.imgur.com/E5U0ex2.png)-
+## Edit Profile Modal
+   ![alt text](https://i.imgur.com/5fwLbvd.png)-
+## Vote Success
+   ![alt text](https://i.imgur.com/pJCzp6m.png)   
+## Vote Fail
+   ![alt text](https://i.imgur.com/CJ9oZZl.png)   
+## Profile Update Success
+   ![alt text](https://i.imgur.com/azNLFxf.png) 
+## Profile Update Fail
+   ![alt text](https://i.imgur.com/ykDGXRA.png) 
+    
+    
 # Contributing
 If you'd like to contribute to this project, please fork the repository and create a pull request with your changes.
