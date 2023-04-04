@@ -24,8 +24,5 @@ public class CustomErrorController implements ErrorController {
         return "error"; // return the name of your default error page
     }
 
-//    @Override
-//    public String getErrorPath() {
-//        return "/error";
-//    }
+
 }
