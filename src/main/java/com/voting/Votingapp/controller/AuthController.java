@@ -51,7 +51,7 @@ public class AuthController {
         ModelAndView modelAndView = new ModelAndView("register");
         // add check for username exists in database
         if (userRepository.existsByUsername(user.getUsername())) {
-//            modelAndView.setViewName("register");
+
             modelAndView.addObject(AppConstants.REGISTER_STATUS, AppConstants.REGISTER_USERNAME_EXISTS);
 
             return modelAndView;
@@ -59,7 +59,7 @@ public class AuthController {
 
         // add check for email exists in database
         if (userRepository.existsByEmail(user.getEmail())) {
-//            modelAndView.setViewName("register");
+
             modelAndView.addObject(AppConstants.REGISTER_STATUS, AppConstants.REGISTER_EMAIL_EXISTS);
             return modelAndView;
         }
@@ -79,7 +79,7 @@ public class AuthController {
 
         userRepository.save(newUser);
 
-//        modelAndView.setViewName("register");
+
         modelAndView.addObject(AppConstants.REGISTER_STATUS,AppConstants.REGISTER_SUCCESS);
 
         return modelAndView;
