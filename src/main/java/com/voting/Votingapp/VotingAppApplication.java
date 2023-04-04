@@ -54,9 +54,9 @@ public class VotingAppApplication implements CommandLineRunner {
 
         //Creating ADMIN
         User user = new User();
-        user.setUsername("kshitij");
-        user.setPassword(passwordEncoder.encode("123"));
-        user.setEmail("kshitij@gmail.com");
+        user.setUsername("<admin-username>");
+        user.setPassword(passwordEncoder.encode("<admin-password>"));
+        user.setEmail("<admin-email>");
         user.setVoted(false);
 
         Role temp = roleRepository.findByName("ROLE_ADMIN").get();
