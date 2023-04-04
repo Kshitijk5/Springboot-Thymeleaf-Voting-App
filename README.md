@@ -28,10 +28,10 @@ This app has two user roles:
 To access the admin-panel page, you'll need to log in as a user with the "admin" role. If you try to access the admin-panel page without logging in, or if you log in as a user without the "admin" role, you'll be redirected to a 403 Access Denied page.
 
 ## Voting
-To vote, you'll need to log in as a user with the "user" role. Each user can only vote once. Once a user has voted, they can no longer access the voting page.
+To vote, you'll need to log in as a user with the "user" role. Each user can only vote once. Once a user has voted, they can no longer vote.
 
 ## Editing Profile
-To edit your profile, click on the "Edit Profile" button on the top right corner of the screen. You'll be redirected to a page where you can update your name and email address.
+To edit your profile, click on the dropdown button on the top right corner of the screen. You'll be redirected to a page where you can update your name and email address.
 
 ## Logging Out
 To log out, click on the "Logout" button on the top right corner of the screen. You'll be redirected to the login page.
